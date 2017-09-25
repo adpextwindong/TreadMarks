@@ -2860,8 +2860,10 @@ void CTankGame::ProcessServerCommand(char* sCommand)
 		char	sOutput[1024];
 		int iCount = 0;
 #ifndef HEADLESS
+#ifdef USE_QT
 		sprintf(sOutput, "%s\n", Text.Get(TEXT_DEDI_LISTHEADER));
 		GetDedicatedWin()->OutputFunc(sOutput, 0);
+#endif
 #endif
 		for (int i = 0; i < MAX_CLIENTS; i++)
 		{
@@ -2871,16 +2873,20 @@ void CTankGame::ProcessServerCommand(char* sCommand)
 				if(ClientEnt = VW.GetEntity(VW.Clients[i].ClientEnt))
 				{
 #ifndef HEADLESS
+#ifdef USE_QT
 					sprintf(sOutput, "%d\t%d\t%d\t%s\n", i, VW.Clients[i].TeamID, ClientEnt->QueryInt(ATT_FRAGS), VW.Clients[i].ClientName.get());
 					GetDedicatedWin()->OutputFunc(sOutput, 0);
+#endif
 #endif
 					iCount++;
 				}
 			}
 		}
 #ifndef HEADLESS
+#ifdef USE_QT
 		sprintf(sOutput, "%s %d\n", Text.Get(TEXT_DEDI_TOTAL), iCount);
 		GetDedicatedWin()->OutputFunc(sOutput, 0);
+#endif
 #endif
 	}
 	else if (strcasecmp(FirstCommand.sEntry, "kick") == 0)
@@ -2901,8 +2907,10 @@ void CTankGame::ProcessServerCommand(char* sCommand)
 				sprintf(sOutput, Text.Get(TEXT_DEDI_KICKINGPLAYER), FirstCommand.next->sEntry);
 			}
 #ifndef HEADLESS
+#ifdef USE_QT
 			sprintf(sOutput, "%s\n", sOutput);
 			GetDedicatedWin()->OutputFunc(sOutput, 0);
+#endif
 #endif
 			for(int i = 0; i < MAX_CLIENTS; i++)
 			{
@@ -2914,8 +2922,10 @@ void CTankGame::ProcessServerCommand(char* sCommand)
 					EntityBase *e = VW.GetEntity(VW.Clients[i].ClientEnt);
 					e->Remove();
 #ifndef HEADLESS
+#ifdef USE_QT
 					sprintf(sOutput, "%s\n", Text.Get(TEXT_DEDI_DISCSENT));
 					GetDedicatedWin()->OutputFunc(sOutput, 0);
+#endif
 #endif
 
 					bKicked = true;
@@ -2926,8 +2936,10 @@ void CTankGame::ProcessServerCommand(char* sCommand)
 			if (bKicked == false)
 			{
 #ifndef HEADLESS
+#ifdef USE_QT
 				sprintf(sOutput, "%s\n", Text.Get(TEXT_DEDI_NOPLAYERSBYNAME));
 				GetDedicatedWin()->OutputFunc(sOutput, 0);
+#endif
 #endif
 			}
 		}
@@ -2943,24 +2955,30 @@ void CTankGame::ProcessServerCommand(char* sCommand)
 		EntityBase	*ent = VW.EntHead->NextLink();
 
 #ifndef HEADLESS
+#ifdef USE_QT
 		sprintf(sOutput, "%s\n", Text.Get(TEXT_DEDI_LISTAIHEADER));
 		GetDedicatedWin()->OutputFunc(sOutput, 0);
+#endif
 #endif
 		while (ent != NULL)
 		{
 			if (ent->QueryInt(ATT_AUTODRIVE))
 			{
 #ifndef HEADLESS
+#ifdef USE_QT
 				sprintf(sOutput, "%d\t%d\t%s\n", ent->QueryInt(ATT_INSIGNIA1_HASH), ent->QueryInt(ATT_FRAGS), ent->QueryString(ATT_NAME).get());
 				GetDedicatedWin()->OutputFunc(sOutput, 0);
+#endif
 #endif
 				iCount++;
 			}
 			ent = ent->NextLink();
 		}
 #ifndef HEADLESS
+#ifdef USE_QT
 		sprintf(sOutput, "%s %d\n", Text.Get(TEXT_DEDI_TOTAL), iCount);
 		GetDedicatedWin()->OutputFunc(sOutput, 0);
+#endif
 #endif
 	}
 	else if (strcasecmp(FirstCommand.sEntry, "kickai") == 0)

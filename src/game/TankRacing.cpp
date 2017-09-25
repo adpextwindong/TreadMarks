@@ -18,13 +18,13 @@
 
 #include <new>
 #include <iostream>
-
+#ifdef USE_QT
 #ifdef QT_CORE_LIB
 #include <QApplication>
 #include <QPixmap>
 #include <QSplashScreen>
 #endif
-
+#endif
 #include "TankRacing.h"
 #include "EntityTank.h"
 #include "EntityGUI.h"
@@ -55,11 +55,13 @@ TreadMarksVersion GameVersion = {VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, VE
 GenericBuffer GenBuf;
 
 #ifndef HEADLESS
+#ifdef USE_QT
 Dedicated* GetDedicatedWin()
 {
 	static Dedicated dedicatedWin;
 	return &dedicatedWin;
 }
+#endif
 #endif
 
 int OverrideRegistry = 0;
@@ -159,9 +161,10 @@ void CheckGraphics()
 		CTankGame::Get().GetVW()->DownloadTextures();
 	}
 }
-#pragma GCC optimize 0
+
 int main(int argc, char** argv)
 {
+#ifdef USE_QT
 #ifdef QT_CORE_LIB
 	QApplication app(argc, argv);
 	QPixmap pixmap(":/splash.png");
@@ -169,6 +172,7 @@ int main(int argc, char** argv)
 	splash.showMessage("Tread Marks is now loading...", Qt::AlignBottom|Qt::AlignCenter, Qt::white);
 	splash.show();
 	app.processEvents();
+#endif
 #endif
 #ifdef __linux__
 	setlocale(LC_NUMERIC, "C");
