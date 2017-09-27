@@ -52,8 +52,8 @@ ENDIF()
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   # require at least gcc 4.8
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.8)
-      message(FATAL_ERROR "GCC version must be at least 4.8!")
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.0)
+      message(FATAL_ERROR "GCC version must be at least 5.0!")
   endif()
   if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 6.0)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")

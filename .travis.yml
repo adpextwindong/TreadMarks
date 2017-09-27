@@ -3,11 +3,15 @@ sudo: true
 dist: trusty
 addons:
   apt:
+    sources:
+    - ubuntu-toolchain-r-test
     packages:
     - libsdl2-dev
     - libsdl2-image-dev
     - libsfml-dev
     - libglew-dev
+    - gcc-5
+    - g++-5
 
 compiler:
     - g++
