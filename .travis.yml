@@ -17,8 +17,8 @@ before_install:
     - wget https://cmake.org/files/v3.6/cmake-3.6.1-Linux-x86_64.tar.gz
     - tar xfv cmake-3.6.1-Linux-x86_64.tar.gz
     - rm -v cmake-3.6.1-Linux-x86_64.tar.gz
-    - mv -v cmake-3.6.1-Linux-x86_64 cmake
+    - mv -v cmake-3.6.1-Linux-x86_64 cmake361
 
 script:
-    - cmake/bin/cmake .
+    - cmake361/bin/cmake .
     - make
