@@ -8,14 +8,16 @@ addons:
     - libsdl2-image-dev
     - libsfml-dev
     - libglew-dev
-    - cmake
-    sources:
-    - kalakris-cmake
 
 compiler:
     - g++
 
 #Build steps
+before_install:
+    - wget https://cmake.org/files/v3.6/cmake-3.6.1-Linux-x86_64.tar.gz
+    - tar xf cmake-3.6.1-Linux-x86_64.tar.gz
+    - ln -s cmake-3.6.1-Linux-x86_64 cmake
+
 script:
-    - cmake .
+    - cmake/bin/cmake .
     - make
