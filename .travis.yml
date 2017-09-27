@@ -1,0 +1,21 @@
+language: cpp
+sudo: true
+dist: trusty
+addons:
+  apt:
+    packages:
+    - libsdl2-dev
+    - libsdl2-image-dev
+    - libsfml-dev
+    - libglew-dev
+    - cmake
+    sources:
+    - kalakris-cmake
+
+compiler:
+    - g++
+
+#Build steps
+script:
+    - cmake .
+    - make
