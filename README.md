@@ -2,7 +2,7 @@
 
 ![Tread Marks build status](https://api.travis-ci.org/ptitSeb/TreadMarks.png "Tread Marks build status")
 
-Unofficial Linux and Pandora port for the OpenSource game Candy Crisis
+Unofficial Linux and Pandora port for the OpenSourced Tank racing game Tread Marks
 
 ![sreenshot on Pandora](screenshot.png "screenshot on Pandora")
 
