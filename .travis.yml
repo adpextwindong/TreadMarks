@@ -22,7 +22,8 @@ before_install:
     - tar xfv cmake-3.6.1-Linux-x86_64.tar.gz
     - rm -v cmake-3.6.1-Linux-x86_64.tar.gz
     - mv -v cmake-3.6.1-Linux-x86_64 cmake361
-
+    - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+    
 script:
     - cmake361/bin/cmake .
     - make
