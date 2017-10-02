@@ -64,7 +64,8 @@ bool ConfigFile::Read(FILE *f, int length){	//Reads named file into internal dat
 		fseek(f, pos, SEEK_SET);
 		len = endpos - pos;// + 1;
 		if((data = (char*)malloc((len + 1) * 2))){
-			fread(data, len, 1, f);
+			size_t dummy = fread(data, len, 1, f);
+			(void)dummy;
 			data[len] = '\0';
 			cdata = &data[len + 1];
 			cdata[len] = '\0';	//CompressedData.

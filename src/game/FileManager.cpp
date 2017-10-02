@@ -171,11 +171,15 @@ size_t FileManager::length(){
 }
 int32_t FileManager::ReadLong(){
 	int32_t l = 0;
-	if(f) ::fread(&l, sizeof(l), 1, f);
+	size_t dummy;
+	if(f) dummy=::fread(&l, sizeof(l), 1, f);
+	(void)dummy;
 	return l;
 }
 char FileManager::ReadByte(){
 	char c = 0;
-	if(f) ::fread(&c, sizeof(c), 1, f);
+	size_t dummy;
+	if(f) dummy=::fread(&c, sizeof(c), 1, f);
+	(void)dummy;
 	return c;
 }

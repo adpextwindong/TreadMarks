@@ -384,6 +384,7 @@ bool Mesh::MakePolyStrips(bool megastrip){
 //#define POLSWAP(a, b) (tp3 = (a), (a) = (b), (b) = tp3)
 //	Poly3D tp3;
 	int strips = 0, p, pp, sp1, sp2, rot, striplen, sp1p, sp2p;
+	striplen = 0; sp1 = 0; sp2 = 0;
 	if(nPoly > 0 && Poly && nVertex > 0 && Vertex){
 		for(p = 0; p < nPoly; p++) Poly[p].Flags = POLY_NORMAL;
 	//	strips++;

@@ -39,7 +39,7 @@ extern "C" {
 };
 
 inline int WriteLong(int n, FILE *f){ return fwrite(&n, sizeof(int), 1, f); }
-inline int ReadLong(FILE *f){ int n = 0; fread(&n, sizeof(int), 1, f); return n; }
+inline int ReadLong(FILE *f){ int n = 0; size_t dummy = fread(&n, sizeof(int), 1, f); (void)dummy; return n; }
 
 bool BGRAfromPE(ARGB *argb, PaletteEntry *pe, uint8_t alpha){
 	if(argb && pe){
@@ -175,7 +175,8 @@ bool LoadBMP(FILE *file, Bitmap *bmp, PaletteEntry *pe){
 	fseek(file, startpos, SEEK_SET);
 	fseek(file, BMPFileHead.bfOffBits, SEEK_CUR);
 	for(int y = bmp->Height() - 1; y >= 0; y--){
-		fread(bmp->Data() + y * bmp->Pitch(), sizeof(uint8_t), bmp->Pitch(), file);
+		size_t dummy = fread(bmp->Data() + y * bmp->Pitch(), sizeof(uint8_t), bmp->Pitch(), file);
+		(void)dummy;
 	}
 
 	//Copy palette from file.
@@ -1141,7 +1142,8 @@ bool ImageSet::LoadSet(FILE *f){
 	char buf[1024];
 	memset(buf, 0, sizeof(buf));
 	if(f){
-		fread(buf, 4, 1, f);
+		size_t dummy = fread(buf, 4, 1, f);
+		(void)dummy;
 		if(strcmp("IMST", buf) == 0){
 			int Version = ReadLong(f);
 			if(Version > IMAGESETVERSION){
@@ -1163,7 +1165,8 @@ bool ImageSet::LoadSet(FILE *f){
 			}
 			for(i = 0; i < nImg; i++){
 				pos = ReadLong(f);	//Size of name.
-				fread(buf, std::min(int(sizeof(buf)) - 1, pos), 1, f);
+				size_t dummy = fread(buf, std::min(int(sizeof(buf)) - 1, pos), 1, f);
+				(void)dummy;
 				if(names && i < nImages) names[i] = buf;	//Set the name.
 				ip = &((*this)[i]);
 				w = ReadLong(f);
@@ -1183,7 +1186,8 @@ bool ImageSet::LoadSet(FILE *f){
 						ip->SetPalette(gpe);
 					}
 					for(y = 0; y < h; y++){
-						fread(ip->Data() + y * ip->Pitch(), w, 1, f);
+						size_t dummy = fread(ip->Data() + y * ip->Pitch(), w, 1, f);
+						(void)dummy;
 					}
 				}
 			}

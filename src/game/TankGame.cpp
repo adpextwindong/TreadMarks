@@ -1893,7 +1893,7 @@ bool CTankGame::DoFrame(){
 
 				if(GameSettings.TeamPlay)
 				{
-					int tmpTeamID;
+					int tmpTeamID = 0;
 					if(AITankTeam)
 					{
 						TeamIndexFromHash(AITankTeam, &tmpTeamID);

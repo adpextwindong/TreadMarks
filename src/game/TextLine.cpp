@@ -57,7 +57,8 @@ int CText::Load(char *file)
     if (!fp) return -1;
     fseek(fp,0,SEEK_END); l=ftell(fp); fseek(fp,0,SEEK_SET);
     this->Buffer = (char *)malloc(l+1);
-    fread(this->Buffer,1,l,fp); fclose(fp);
+    size_t dummy = fread(this->Buffer,1,l,fp); fclose(fp);
+    (void)dummy;
     this->Buffer[l] = 0;    // Force an end to the buffer
 
     ptr = this->Buffer;

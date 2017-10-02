@@ -56,7 +56,8 @@ int CTextBlock::Load(char *file)
 	if(this->Buffer)
 		free(this->Buffer);
     this->Buffer = (char *)malloc(l+1);
-    fread(this->Buffer,1,l,fp);
+    size_t dummy = fread(this->Buffer,1,l,fp);
+    (void)dummy;
 	fclose(fp);
     this->Buffer[l] = 0;
 

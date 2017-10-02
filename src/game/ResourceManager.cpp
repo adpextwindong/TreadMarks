@@ -279,7 +279,8 @@ int ResourceManager::GetFileCRC(const char *n, unsigned int *crc, int *size)
 			mem = (unsigned char *)malloc(len);
 			fp = pFM->GetFile();
 			if (fp && mem) {
-				fread(mem,len,1,fp);
+				size_t dummy = fread(mem,len,1,fp);
+				(void)dummy;
 				hash = Checksum(mem,len);
 			}
 			if (mem) free(mem);

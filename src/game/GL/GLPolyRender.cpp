@@ -716,7 +716,7 @@ void GLPolyRender::GLRenderChamfered2DBoxObject(Chamfered2DBoxObject *thisbox, P
 
 	GLfloat v[8][2];
 
-	thisbox->Z;
+	//thisbox->Z;
 	v[0][0] = thisbox->x;
 	v[0][1] = thisbox->y + (thisbox->chamferwidth * 1.333);
 

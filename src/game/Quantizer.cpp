@@ -186,7 +186,8 @@ bool MixTable::MakeLookup(PaletteEntry *pe, bool disk){
 #ifndef TEST_CUBE_LERP
 	if(disk){
 		if((f = fopen(fn, "rb")) != NULL){
-			fread(tpe, sizeof(PaletteEntry), 256, f);
+			size_t dummy = fread(tpe, sizeof(PaletteEntry), 256, f);
+			(void)dummy;
 			OK = true;
 			for(i = 0; i < 256; i++){
 				if(	pe[i].peRed != tpe[i].peRed ||
@@ -637,7 +638,8 @@ inline bool InversePal::blue_loop(int *dbuf, unsigned char *cbuf, int center, in
 				dbuf[n] = d;
 				b_found1 = true;
 			}else if(b_found1) break;
-			d += diter + (++diter);
+			d += diter;
+			d += (++diter);
 		}
 		if(!b_found1) b_skip1 = true;
 	}
@@ -650,7 +652,8 @@ inline bool InversePal::blue_loop(int *dbuf, unsigned char *cbuf, int center, in
 				dbuf[n] = d;
 				b_found2 = true;
 			}else if(b_found2) break;
-			d += diter + (++diter);
+			d += diter;
+			d += (++diter);
 		}
 		if(!b_found2) b_skip2 = true;
 	}
@@ -670,7 +673,8 @@ inline bool InversePal::green_loop(int *dbuf, unsigned char *cbuf, int center, i
 			if(blue_loop(dbuf + (n <<blue_pow2), cbuf + (n <<blue_pow2), b_center, d)){
 				g_found1 = true;
 			}else if(g_found1) break;
-			d += diter + (++diter);
+			d += diter;
+			d += (++diter);
 		}
 		if(!g_found1) g_skip1 = true;
 	}
@@ -682,7 +686,8 @@ inline bool InversePal::green_loop(int *dbuf, unsigned char *cbuf, int center, i
 			if(blue_loop(dbuf + (n <<blue_pow2), cbuf + (n <<blue_pow2), b_center, d)){
 				g_found2 = true;
 			}else if(g_found2) break;
-			d += diter + (++diter);
+			d += diter;
+			d += (++diter);
 		}
 		if(!g_found2) g_skip2 = true;
 	}
@@ -701,7 +706,8 @@ inline bool InversePal::red_loop(int *dbuf, unsigned char *cbuf, int center, int
 			if(green_loop(dbuf + (n <<gb_pow2), cbuf + (n <<gb_pow2), g_center, d)){
 				r_found1 = true;
 			}else if(r_found1) break;
-			d += diter + (++diter);
+			d += diter;
+			d += (++diter);
 		}
 //		if(!r_found1) r_skip1 = true;
 //	}
@@ -713,7 +719,8 @@ inline bool InversePal::red_loop(int *dbuf, unsigned char *cbuf, int center, int
 			if(green_loop(dbuf + (n <<gb_pow2), cbuf + (n <<gb_pow2), g_center, d)){
 				r_found2 = 1;
 			}else if(r_found2) break;
-			d += diter + (++diter);
+			d += diter;
+			d += (++diter);
 		}
 //		if(!r_found2) r_skip2 = true;
 //	}
