@@ -20,4 +20,4 @@ simply
 
 You can see the original BUILD.txt ![here](BUILD.txt)
 
-The 64 bits build does not works correctly. You'll need to force `-m32` in your `CXXFLAGS` and `CFLAGS` if you building on a 64bits Linux.
+The 64 bits build seems to works correctly. It may not work in network mode, I haven't tried yet. If you need a 32bits, add `-m32` in your `CXXFLAGS` and `CFLAGS` if you building on a 64bits Linux.
