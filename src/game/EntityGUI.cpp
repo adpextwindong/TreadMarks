@@ -228,7 +228,7 @@ bool EntityGUIBackground::Think(){
 		float col = ((TP->type_rendflags & SPRITE_BLEND_ADD) ? fade : 1.0f);
 	//	if(niceremove) fade *= 1.0f - ((float)niceremove / std::max(0.1f, TP->type_removetime * 1000.0f));
 		//
-#ifdef PANDORA
+#if defined(PANDORA) || defined(PYRA)
 		float a = ((float)VW->Time() / 1000.0f / std::max<float>(0.1f, (float)TP->type_rotatetime)) * PI2;
 #else
 		double a = ((double)VW->Time() / 1000.0 / std::max<double>(0.1, (double)TP->type_rotatetime)) * PI2;

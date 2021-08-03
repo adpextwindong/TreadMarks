@@ -58,18 +58,32 @@ CGraphicsSettings::CGraphicsSettings()
 {
 	RendFlags = REND_FILTER | REND_SMOOTH | REND_OVERSAMPLE;
 	Stretch = false;
+#ifdef PYRA
+	UseFullScreen = true;
+#else
 	UseFullScreen = false;
+#endif
 	DisableMT = 0;
 	UseFog = true;
 	UseAlphaTest = false;
 	MenuFire = 1;
+#ifdef PYRA
+	GLBWIDTH = 1280;
+	GLBHEIGHT = 720;
+#else
 	GLBWIDTH = 0;
 	GLBHEIGHT = 0;
+#endif
 	Quality = 0.5f;
 	WireFrame = false;
 	StripFanMap = true;
+#ifdef PYRA
+        TreadMarks = true;
+        DetailTerrain = true;
+#else
 	TreadMarks = false;
 	DetailTerrain = false;
+#endif
 	PolyLod = 0;
 	Particles = 1.0f;
 
@@ -112,8 +126,13 @@ void CInputSettings::InitControls() // can't do this in the constructor because 
 
 	Controls[0].Set(ControlText.Get(CONTROL_TURNLEFT), "LEFT", "A", "", CEID_Left);
 	Controls[1].Set(ControlText.Get(CONTROL_TURNRIGHT), "RIGHT", "D", "", CEID_Right);
+#ifdef PYRA
+        Controls[2].Set(ControlText.Get(CONTROL_FORWARD), "PAGEDOWN", "W", "NUMLOCK", CEID_Up);
+        Controls[3].Set(ControlText.Get(CONTROL_REVERSE), "END", "S", "", CEID_Down);
+#else
 	Controls[2].Set(ControlText.Get(CONTROL_FORWARD), "UP", "W", "NUMLOCK", CEID_Up);
 	Controls[3].Set(ControlText.Get(CONTROL_REVERSE), "DOWN", "S", "", CEID_Down);
+#endif
 	Controls[4].Set(ControlText.Get(CONTROL_GUNLEFT), ",", "Z", "", CEID_TLeft);
 	Controls[5].Set(ControlText.Get(CONTROL_GUNRIGHT), ".", "C", "", CEID_TRight);
 	Controls[6].Set(ControlText.Get(CONTROL_FIRE), "SPACE", "Mouse L", "Joy 1", CEID_Fire);
@@ -127,8 +146,13 @@ void CInputSettings::InitControls() // can't do this in the constructor because 
 	Controls[14].Set(ControlText.Get(CONTROL_TURRETCAM), "Mouse M", "M", "", CEID_TurretCam);
 	Controls[15].Set(ControlText.Get(CONTROL_TILTUP), "INSERT", ";", "", CEID_TiltCamUp);
 	Controls[16].Set(ControlText.Get(CONTROL_TILTDOWN), "DELETE", "/", "", CEID_TiltCamDn);
+#ifdef PYRA
+        Controls[17].Set(ControlText.Get(CONTROL_LOOKLEFT), "K", "", "", CEID_SpinCamLt);
+        Controls[18].Set(ControlText.Get(CONTROL_LOOKRIGHT), "L", "", "", CEID_SpinCamRt);
+#else
 	Controls[17].Set(ControlText.Get(CONTROL_LOOKLEFT), "END", "K", "", CEID_SpinCamLt);
 	Controls[18].Set(ControlText.Get(CONTROL_LOOKRIGHT), "PAGEDOWN", "L", "", CEID_SpinCamRt);
+#endif
 	Controls[19].Set(ControlText.Get(CONTROL_LOOKBACK), "N", "", "", CEID_SpinCamBk);
 	Controls[20].Set(ControlText.Get(CONTROL_RESET), "HOME", "", "", CEID_CamReset);
 }
@@ -2278,7 +2302,7 @@ void CTankGame::DoSfmlEvents()
 
 		case sf::Event::KeyPressed:
 			{
-#ifdef PANDORA
+#if defined(PANDORA) || defined(PYRA)
 				if(sfmlEvent.key.code==sf::Keyboard::RShift || sfmlEvent.key.code==sf::Keyboard::RControl) {
 					if(sfmlEvent.key.code==sf::Keyboard::RControl)
 						GetVW()->Ififo.Set("Mouse L", 1);
@@ -2351,10 +2375,12 @@ void CTankGame::DoSfmlEvents()
 					case sf::Keyboard::F6 : GetSettings()->GraphicsSettings.TreadMarks = !GetSettings()->GraphicsSettings.TreadMarks; break;
 					case sf::Keyboard::F7 : GetSettings()->GraphicsSettings.DetailTerrain = !GetSettings()->GraphicsSettings.DetailTerrain; break;
 #endif
+#ifndef PYRA
 					case sf::Keyboard::F8 :
 						GetGameState()->SwitchMode = true;
 						GetSettings()->GraphicsSettings.UseFullScreen = !GetSettings()->GraphicsSettings.UseFullScreen;
 						break;
+#endif
 #ifdef _DEBUG
 					case sf::Keyboard::F9 :
 						GetSettings()->GraphicsSettings.DisableMT = !GetSettings()->GraphicsSettings.DisableMT;
@@ -2392,7 +2418,7 @@ void CTankGame::DoSfmlEvents()
 				break;
 			}
 		case sf::Event::KeyReleased:
-#ifdef PANDORA
+#if defined(PANDORA) || defined(PYRA)
 			if(sfmlEvent.key.code==sf::Keyboard::RShift || sfmlEvent.key.code==sf::Keyboard::RControl) {
 				if(sfmlEvent.key.code==sf::Keyboard::RControl)
 					GetVW()->Ififo.Set("Mouse L", 0);
@@ -3141,7 +3167,9 @@ int CTankGame::ReadConfigCfg(const char *name){
 		if(cfg.FindKey("TreadMarks")) cfg.GetBoolVal(&GameSettings.GraphicsSettings.TreadMarks);
 		if(cfg.FindKey("DetailTerrain")) cfg.GetBoolVal(&GameSettings.GraphicsSettings.DetailTerrain);
 		if(cfg.FindKey("WireFrame")) cfg.GetBoolVal(&GameSettings.GraphicsSettings.WireFrame);
+#ifndef PYRA
 		if(cfg.FindKey("FullScreen")) cfg.GetBoolVal(&GameSettings.GraphicsSettings.UseFullScreen);
+#endif
 		if(cfg.FindKey("MaxTexRes")) cfg.GetIntVal(&GameSettings.GraphicsSettings.MaxTexRes);
 		if(cfg.FindKey("PolyLod")) cfg.GetIntVal(&GameSettings.GraphicsSettings.PolyLod);
 		if(cfg.FindKey("Particles")) cfg.GetFloatVal(&GameSettings.GraphicsSettings.Particles);

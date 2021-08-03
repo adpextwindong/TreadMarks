@@ -35,6 +35,8 @@ CStr GetCommonAppDataDir()
 {
 #ifdef PANDORA
     return CStr("/mnt/utmp/treadmarks/");
+#elif defined(PYRA)
+    return CStr("/mnt/dbp/union/treadmarks/");
 #else
     return CStr("/usr/local/share/TreadMarks/");
 #endif

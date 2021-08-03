@@ -1380,7 +1380,7 @@ bool EntityMesh::Think(){
 	if(TP->constmovement){	//Constant undulating movement and/or rotation.
 		ScaleAddVec3(TP->type_constrotate, VW->FrameFrac(), Rotation);
 		NormRot3(Rotation);	//constwavetime is seconds for complete undulation.
-#ifdef PANDORA
+#if defined(PANDORA) || defined(PYRA)
 		float t = fmodf((float)VW->Time() * 0.001f, std::max<float>(0.01f, double(TP->type_constwavetime))) / std::max<float>(0.01f, float(TP->type_constwavetime));
 #else
 		double t = fmod((double)VW->Time() * 0.001, std::max<double>(0.01, double(TP->type_constwavetime))) / std::max<double>(0.01, double(TP->type_constwavetime));

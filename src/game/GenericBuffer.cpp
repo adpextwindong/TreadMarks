@@ -60,6 +60,8 @@ private:
 	GLContextSingleton() : context(16)
 	{
 		glewInit();
+		context.depthBits = 24;
+		context.stencilBits = 8;
 	}
 };
 
