@@ -8,6 +8,11 @@ SET(BUILD_HEADLESS false CACHE BOOL "Set to true if you want to build a headless
 SET(USE_QT CACHE BOOL "Use Qt5 to build dedicated server.")
 SET(PANDORA false CACHE BOOL "Build for the Pandora.")
 SET(PYRA false CACHE BOOL "Build for the Pyra.")
+SET(NIXOS false BOOL "Set OpenGL_GL_PREFERENCE for NIXOS.")
+
+IF(NIXOS)
+  SET(OpenGL_GL_PREFERENCE "LEGACY")
+ENDIF()
 
 IF(WIN32)
   SET(CERT "" CACHE FILEPATH "The location of the digital certificate with which to sign your installer.")
